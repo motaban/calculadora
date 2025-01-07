@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Estética</title>
+    <style>
+        body {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* principal */
+        .calculator {
+            background-color: #444;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        /* pantalla */
+        .display {
+            background-color: #222;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 30px;
+            padding: 15px;
+            width: 100%;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        /* botones */
+        .button {
+            background-color: #555;
+            border: none;
+            color: white;
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Efectos botones */
+        .button:hover {
+            background-color: #777;
+        }
+        .button:active {
+            background-color: #999;
+        }
+        .button-zero {
+            width: 110px;
+        }
+        .equal {
+            background-color: #6b8e23;
+            width: 110px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        
+        <div>
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button" onclick="appendOperator('+')">+</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button" onclick="appendOperator('-')">-</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button" onclick="appendOperator('*')">*</button>
+        </div>
+        <div>
+            <button class="button zero button-zero" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="appendOperator('/')">/</button>
+            <button class="button equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = ''; 
+
+        function appendNumber(number) {
+            currentInput += number;  
+            display.value = currentInput;
+        }
+
+        function appendOperator(operator) {
+            if (currentInput !== '' && !['+', '-', '*', '/'].includes(currentInput.slice(-1))) {
+                currentInput += operator;
+                display.value = currentInput;
+            }
+        }
+
+        // Funcióm borrar todo
+        function clearDisplay() {
+            currentInput = '';  // Resetea
+            display.value = '';  // Borra
+        }
+
+        function calculate() {
+            try {
+                currentInput = eval(currentInput).toString();
+                display.value = currentInput; 
+            } catch {
+                display.value = 'Error';
+                currentInput = ''; 
+            }
+        }
+    </script>
+
+</body>
+</html>
